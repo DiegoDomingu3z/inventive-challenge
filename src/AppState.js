@@ -10,7 +10,7 @@ export const AppState = reactive({
     customTest: "Custom",
     test2: "Lean Terminology"
   },
-  wasteQuestions: [
+  leanTerminology: [
     {
 
       questionText: '6S',
@@ -142,6 +142,88 @@ export const AppState = reactive({
     },
   ],
 
+  wasteTest: [
+    {
+      questionText: 'Overproduction',
+      answerOption: [
+        { letter: "a", answerText: ' Unnecessary movement of people or parts between processes.' },
+        { letter: "b", answerText: 'Processing beyond the standard required by the customer.' },
+        { letter: "c", answerText: ' To produce sooner, faster, or in greater quantities than customer demands.', isCorrect: true },
+        { letter: "d", answerText: "Under utilizing people's talents, skills, and knowledge." },
+      ]
+
+    },
+    {
+      questionText: 'Inventory',
+      answerOption: [
+        { letter: "a", answerText: ' Raw material, work in process, or finished goods which are not having value added to it.', isCorrect: true },
+        { letter: "b", answerText: ' Unnecessary movement of people or parts between processes.' },
+        { letter: "c", answerText: 'Processing beyond the standard required by the customer.' },
+        { letter: "d", answerText: "Under utilizing people's talents, skills, and knowledge." },
+      ]
+
+    },
+    {
+      questionText: 'Waiting',
+      answerOption: [
+        { letter: "a", answerText: "Under utilizing people’s talents, skills, and knowledge." },
+        { letter: "b", answerText: 'Processing beyond the standard required by the customer.' },
+        { letter: "c", answerText: "Not right the first time. Repetition or correction of a process. Scrap, rework and defects." },
+        { letter: "d", answerText: ' People or parts that wait for a work cycle to be completed.', isCorrect: true },
+      ]
+
+    },
+    {
+      questionText: 'Motion',
+      answerOption: [
+        { letter: "a", answerText: "Unnecessary movement of people, parts or machines within a process.", isCorrect: true },
+        { letter: "b", answerText: ' People or parts that wait for a work cycle to be completed.' },
+        { letter: "c", answerText: 'Processing beyond the standard required by the customer.' },
+        { letter: "d", answerText: "Raw material, work in process, or finished goods which are not having value added to it." },
+      ]
+
+    },
+    {
+      questionText: 'Transportation',
+      answerOption: [
+        { letter: "a", answerText: ' People or parts that wait for a work cycle to be completed.' },
+        { letter: "b", answerText: "Not right the first time. Repetition or correction of a process. Scrap, rework and defects." },
+        { letter: "c", answerText: "Under utilizing people’s talents, skills, and knowledge." },
+        { letter: "d", answerText: ' Unnecessary movement of people or parts between processes.', isCorrect: true },
+      ]
+
+    },
+    {
+      questionText: 'Defects',
+      answerOption: [
+        { letter: "a", answerText: ' To produce sooner, faster, or in greater quantities than customer demands.' },
+        { letter: "b", answerText: "Unnecessary movement of people, parts or machines within a process." },
+        { letter: "c", answerText: "Not right the first time. Repetition or correction of a process. Scrap, rework and defects.", isCorrect: true },
+        { letter: "d", answerText: ' Raw material, work in process, or finished goods which are not having value added to' },
+      ]
+
+    },
+    {
+      questionText: 'Over Processing',
+      answerOption: [
+        { letter: "a", answerText: ' Processing beyond the standard required by the customer.', isCorrect: true },
+        { letter: "b", answerText: "Not right the first time. Repetition or correction of a process. Scrap, rework and defects." },
+        { letter: "c", answerText: " People or parts that wait for a work cycle to be completed." },
+        { letter: "d", answerText: ' To produce sooner, faster, or in greater quantities than customer demands.' },
+      ]
+
+    },
+    {
+      questionText: 'Talent',
+      answerOption: [
+        { letter: "a", answerText: ' To produce sooner, faster, or in greater quantities than customer demands.' },
+        { letter: "b", answerText: "Not right the first time. Repetition or correction of a process. Scrap, rework and defects." },
+        { letter: "c", answerText: "Under utilizing people’s talents, skills, and knowledge.", isCorrect: true },
+        { letter: "d", answerText: "Unnecessary movement of people, parts or machines within a process." },
+      ]
+
+    },
+  ],
   customTest: []
 
 })

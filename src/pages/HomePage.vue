@@ -5,9 +5,12 @@
       <div class="col-md-4">
         <div class="m-3">
           <div class="bg-grey text-center card">
-            <h4 class="name">{{ testName.wasteTest }}</h4>
+            <h4 class="name">{{ testName.test2 }}</h4>
             <div>
-              <button @click="goToWasteTest" class="btn bg-danger px-4">
+              <button
+                @click="goToLeanTerminologyTest"
+                class="btn bg-danger px-4"
+              >
                 Start Test
               </button>
             </div>
@@ -40,12 +43,9 @@
       <div class="col-md-4">
         <div class="m-3">
           <div class="bg-grey text-center card">
-            <h4 class="name">{{ testName.test2 }}</h4>
+            <h4 class="name">{{ testName.wasteTest }}</h4>
             <div>
-              <button
-                @click="goToLeanTerminologyTest"
-                class="btn bg-danger px-4"
-              >
+              <button @click="goToWasteTest" class="btn bg-danger px-4">
                 Start Test
               </button>
             </div>

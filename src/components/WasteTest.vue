@@ -17,18 +17,20 @@
     </div>
   </nav>
   <div>
-    <div v-if="showScore" title="Results" style="max-width: 20rem">
-      You Score{{ percentage }}%
+    <div
+      v-if="showScore"
+      class="scoreboard text-center elevation-4 col-md-4 mx-auto"
+    >
+      <div><h3>Test Completed!</h3></div>
+      <div class="text-muted">You scored:</div>
+      <div class="percentage mt-3">
+        <p class="score">{{ percentage }}%</p>
+      </div>
+      <div class="home-btn">
+        <button @click="goHome" class="btn text-danger">Return Home</button>
+      </div>
     </div>
 
-    <!-- <div title="Simple Quiz Application" style="max-width: 20rem" class="mb-2">
-      <div>Question No.{{ currentQuestion + 1 }} of {{ questions.length }}</div>
-      <br />
-      
-      <div>
-        {{ questions[currentQuestion].questionText }}
-      </div>
-    </div> -->
     <div v-else class="row gx-0">
       <form id="form" action="" @submit.prevent="submit(answer)">
         <div class="test-card rounded col-md-8 mx-auto elevation-5">
@@ -41,7 +43,7 @@
           <div
             class="d-flex justify-content-between questions"
             :key="index"
-            v-for="(option, index) in questions[currentQuestion].answerOptions"
+            v-for="(option, index) in questions[currentQuestion].answerOption"
           >
             <label v-bind:value="option.answerText">
               {{ option.letter }}. {{ option.answerText }}
@@ -62,8 +64,8 @@
     </div>
   </div>
 </template>
-    
-    <script>
+      
+      <script>
 import { AppState } from "../AppState";
 import { computed, onMounted, ref } from "@vue/runtime-core";
 import { useRouter } from "vue-router";
@@ -78,7 +80,7 @@ export default {
       showScore: false,
       score: 0,
       percentage: "",
-      questions: computed(() => AppState.wasteQuestions),
+      questions: computed(() => AppState.wasteTest),
       testName: computed(() => AppState.testNames),
       goHome() {
         route.push({ name: "Home" });
@@ -101,10 +103,9 @@ export default {
 
       if (nextQuestion < this.questions.length) {
         this.currentQuestion = nextQuestion;
-        console.log("nextQuestion! Lets Go!");
-        console.log(this.currentQuestion);
       } else {
-        let newScore = (this.score / this.currentQuestion) * 100;
+        let totalQuestions = AppState.wasteTest.length;
+        let newScore = (this.score / totalQuestions) * 100;
         this.percentage = newScore.toFixed(0);
         this.showScore = true;
       }
@@ -112,8 +113,31 @@ export default {
   },
 };
 </script>
-    
-<style scoped>
+      
+  <style scoped>
+.home-btn {
+  color: red;
+  font-weight: bolder;
+  padding-top: 1.5rem;
+}
+.score {
+  margin-top: 4rem;
+  font-size: 40px;
+}
+.percentage {
+  display: inline-block;
+  width: 200px;
+  height: 200px;
+  background-color: black;
+  border-radius: 50%;
+  text-align: center;
+  color: white;
+}
+.scoreboard {
+  margin-top: 4rem;
+  background-color: white;
+  padding: 3rem;
+}
 .submit-btn {
   background-color: red;
   padding-left: 2rem;

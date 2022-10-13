@@ -1,5 +1,7 @@
 <template>
-  <div class="container"></div>
+  <div class="container-fluid gx-0">
+    <LeanTerminology />
+  </div>
 </template>
 
 

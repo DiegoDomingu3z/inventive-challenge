@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid gx-0">
-    <WasteTesting />
+    <WasteTest />
   </div>
 </template>
 
