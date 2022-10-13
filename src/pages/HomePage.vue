@@ -5,7 +5,7 @@
       <div class="col-md-4">
         <div class="m-3">
           <div class="bg-grey text-center card">
-            <h4 class="name">{{ testName.test1 }}</h4>
+            <h4 class="name">{{ testName.wasteTest }}</h4>
             <div>
               <button @click="goToWasteTest" class="btn bg-danger px-4">
                 Start Test
@@ -20,7 +20,7 @@
             <h4 class="name">{{ testName.customTest }}</h4>
             <div>
               <button
-                v-if="test1.length > 0"
+                v-if="customTest.length > 0"
                 @click="goToWasteTest"
                 class="btn bg-danger px-4"
               >
@@ -64,9 +64,7 @@ export default {
   setup() {
     const router = useRouter();
 
-    onMounted(async () => {
-      console.log(AppState.test1.length);
-    });
+    onMounted(async () => {});
 
     return {
       goToWasteTest() {
@@ -84,7 +82,7 @@ export default {
       },
 
       testName: computed(() => AppState.testNames),
-      test1: computed(() => AppState.test1),
+      customTest: computed(() => AppState.customTest),
     };
   },
 };

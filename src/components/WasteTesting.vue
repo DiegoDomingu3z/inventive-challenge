@@ -1,124 +1,180 @@
 <template>
-  <div class="d-flex justify-content-center">
-    <div v-if="showScore">
-      <b-card title="Results" style="max-width: 20rem">
-        You Scored {{ score }} of {{ questions.length }}
-      </b-card>
+  <nav class="">
+    <div class="row gx-0">
+      <div class="col-md-6">
+        <h1 class="test-name">{{ testName.wasteTest }}</h1>
+      </div>
+      <div class="col-md-6 text-center">
+        <div class="quiz-info">
+          <span @click="goHome" type="button" class="home btn"
+            >Return Home</span
+          >
+          <span class="questions-left">
+            {{ currentQuestion + 1 }} / {{ questions.length }}</span
+          >
+        </div>
+      </div>
     </div>
-    <div class="card-q" v-else>
-      <span>
-        <b-card
-          title="Simple Quiz Application"
-          style="max-width: 20rem"
-          class="mb-2"
-        >
-          <b-card-text>
-            Question No.{{ currentQuestion + 1 }} of {{ questions.length }}
-          </b-card-text>
-          <br />
+  </nav>
+  <div>
+    <div v-if="showScore" title="Results" style="max-width: 20rem">
+      You Score{{ percentage }}%
+    </div>
 
-          <b-card-text>
-            {{ questions[currentQuestion].questionText }}
-          </b-card-text>
-          <div class="answer-section">
-            <b-button
-              :key="index"
-              v-for="(option, index) in questions[currentQuestion]
-                .answerOptions"
-              @click="handleAnswerClick(option.isCorrect)"
-              class="ans-option-btn"
-              variant="primary"
-              >{{ option.answerText }}</b-button
-            >
+    <!-- <div title="Simple Quiz Application" style="max-width: 20rem" class="mb-2">
+      <div>Question No.{{ currentQuestion + 1 }} of {{ questions.length }}</div>
+      <br />
+      
+      <div>
+        {{ questions[currentQuestion].questionText }}
+      </div>
+    </div> -->
+    <div v-else class="row gx-0">
+      <form id="form" action="" @submit.prevent="submit(answer)">
+        <div class="test-card rounded col-md-8 mx-auto elevation-5">
+          <div class="question-name">
+            <span> {{ currentQuestion + 1 }}. </span>
+            <span>
+              {{ questions[currentQuestion].questionText }}
+            </span>
           </div>
-        </b-card>
-      </span>
+          <div
+            class="d-flex justify-content-between questions"
+            :key="index"
+            v-for="(option, index) in questions[currentQuestion].answerOptions"
+          >
+            <label v-bind:value="option.answerText">
+              {{ option.letter }}. {{ option.answerText }}
+            </label>
+            <input
+              v-bind:id="option.answerText"
+              :value="option.isCorrect"
+              type="radio"
+              v-model="answer"
+              name="testing"
+            />
+          </div>
+        </div>
+        <div class="col-md-8 mx-auto text-end mt-5 mb-5">
+          <button class="btn bg-danger submit-btn">submit</button>
+        </div>
+      </form>
     </div>
   </div>
 </template>
     
     <script>
 import { AppState } from "../AppState";
-import { computed } from "@vue/runtime-core";
+import { computed, onMounted, ref } from "@vue/runtime-core";
+import { useRouter } from "vue-router";
+import Pop from "../utils/Pop";
 export default {
   data() {
+    const route = useRouter();
+
     return {
+      answer: {},
       currentQuestion: 0,
       showScore: false,
       score: 0,
-      questions: computed(() => AppState.questions),
+      percentage: "",
+      questions: computed(() => AppState.wasteQuestions),
+      testName: computed(() => AppState.testNames),
+      goHome() {
+        route.push({ name: "Home" });
+      },
     };
   },
   methods: {
-    handleAnswerClick(isCorrect) {
+    submit(answer) {
+      console.log(answer);
       let nextQuestion = this.currentQuestion + 1;
-      if (isCorrect) {
-        this.score = this.score + 1;
+      if (answer != true && answer != undefined) {
+        Pop.toast("Please Select an Answer");
+
+        return;
       }
+      if (answer == true) {
+        this.score = this.score + 1;
+        console.log("correct!");
+      }
+
       if (nextQuestion < this.questions.length) {
         this.currentQuestion = nextQuestion;
-        // this.$store.state.questionAttended = this.currentQuestion;
-        // localStorage.setItem('qattended', this.currentQuestion)
+        console.log("nextQuestion! Lets Go!");
+        console.log(this.currentQuestion);
       } else {
-        // localStorage.removeItem('qattended')
+        let newScore = (this.score / this.currentQuestion) * 100;
+        this.percentage = newScore.toFixed(0);
         this.showScore = true;
-        // localStorage.setItem('testComplete',this.showScore)
       }
     },
   },
 };
 </script>
     
-    <style scoped>
-.card {
-  min-width: 100%;
-  border-radius: 15px;
-  padding: 20px;
-  box-shadow: 10px 10px 42px 0px rgba(0, 0, 0, 0.75);
+<style scoped>
+.submit-btn {
+  background-color: red;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
-.card-q {
-  min-width: 60%;
+.question-name {
+  padding-bottom: 1rem;
+  border-bottom: 2px solid red;
+  color: red;
+  font-size: 20px;
+  font-weight: bolder;
 }
-.ans-option-btn {
-  min-width: 50%;
-  font-size: 16px;
-  color: #ffffff;
-  align-items: center;
-  cursor: pointer;
-  margin-bottom: 5px;
+.questions {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
-.answer-section {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+.test-card {
+  margin-top: 4rem;
+  background-color: white;
+  padding: 3rem;
+  padding-right: 4rem;
+  padding-left: 4rem;
 }
-.timer-text {
-  background: rgb(230, 153, 12);
-  padding: 15px;
-  margin-top: 20px;
-  margin-right: 20px;
-  border: 5px solid rgb(255, 189, 67);
-  border-radius: 15px;
+.test-name {
+  padding: 1.2rem;
   text-align: center;
+  color: white;
 }
-.card-img,
-.card-img-top {
-  border-top-left-radius: calc(0.25rem - 1px);
-  border-top-right-radius: calc(0.25rem - 1px);
-  height: 350px;
+.questions-left {
+  padding: 0.7rem;
+  padding-right: 2rem;
+  padding-left: 2rem;
+  border-radius: 16px;
+  color: white;
+  background-color: black;
 }
-/* .ans-option-btn {
-      width: 100%;
-      font-size: 16px;
-      color: #ffffff;
-      background-color: #252d4a;
-      border-radius: 15px;
-      display: flex;
-      padding: 5px;
-      justify-content: flex-start;
-      align-items: center;
-      border: 5px solid #234668;
-      cursor: pointer;
-    } */
+.home {
+  margin-right: 6rem;
+  font-size: 18px;
+}
+
+nav {
+  background: rgba(232, 27, 27, 0.953);
+  height: 10vh;
+}
+
+.quiz-info {
+  padding-top: 1.8rem;
+  color: white;
+}
+
+@media (max-width: 786px) {
+  .quiz-info {
+    padding-top: 0;
+  }
+  nav {
+    height: 14vh;
+  }
+
+  .test-name {
+    padding: 0.7rem;
+  }
+}
 </style>

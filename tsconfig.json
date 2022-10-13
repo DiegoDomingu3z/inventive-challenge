@@ -4,7 +4,8 @@
     "allowJs": true,
     "checkJs": true,
     "lib": [
-      "ESNext"
+      "ESNext",
+      "DOM"
     ],
     "noEmit": true
   },

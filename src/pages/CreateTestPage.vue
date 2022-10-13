@@ -1,15 +1,12 @@
 <template>
-  <div class="about">
-    <h1>This is the about page</h1>
-  </div>
+  <header><Navbar /></header>
+  <div class="container"></div>
 </template>
 
 <script>
 export default {
   setup() {
-    return {
-
-    }
-  }
-}
+    return {};
+  },
+};
 </script>

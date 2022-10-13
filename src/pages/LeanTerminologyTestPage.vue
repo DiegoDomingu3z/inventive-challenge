@@ -1,15 +1,15 @@
 <template>
-  <div class="container">
-    <span>this is working</span>
-  </div>
+  <div class="container"></div>
 </template>
 
 
 <script>
 export default {
-  setup() {
-    return {};
+  data() {
+    return;
   },
+
+  methods: {},
 };
 </script>
 
