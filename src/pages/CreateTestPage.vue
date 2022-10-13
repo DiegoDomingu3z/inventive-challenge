@@ -1,6 +1,8 @@
 <template>
   <header><Navbar /></header>
-  <div class="container"></div>
+  <div class="container">
+    <CreateTest />
+  </div>
 </template>
 
 <script>
