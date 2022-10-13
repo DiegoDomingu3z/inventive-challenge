@@ -1,57 +1,48 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
-    <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-      <div class="d-flex flex-column align-items-center">
-        <img alt="logo" src="../assets/img/cw-logo.png" height="45" />
+  <nav>
+    <div class="row gx-0">
+      <div class="col-md-8 pt-3">
+        <h2 class="header">The Inventive Group - Training Modules</h2>
       </div>
-    </router-link>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarText"
-      aria-controls="navbarText"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav me-auto">
-        <li>
-          <router-link :to="{ name: 'About' }" class="btn text-success lighten-30 selectable text-uppercase">
-            About
-          </router-link>
-        </li>
-      </ul>
-      <!-- LOGIN COMPONENT HERE -->
-      <Login />
+      <div class="col-md-4 pt-4">
+        <router-link :to="{ name: 'Home' }">
+          <button class="btn all-tests" type="button">All Tests</button>
+        </router-link>
+        <router-link :to="{ name: 'Create' }">
+          <button class="create-btn rounded-pill px-4" type="button">
+            Create a Test
+          </button>
+        </router-link>
+      </div>
     </div>
   </nav>
 </template>
 
 <script>
-import Login from './Login.vue'
 export default {
   setup() {
-    return {}
+    return {};
   },
-  components: { Login }
-}
+};
 </script>
 
 <style scoped>
-a:hover {
-  text-decoration: none;
+.header {
+  text-align: center;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.953);
 }
 
-.nav-link {
-  text-transform: uppercase;
+nav {
+  background: rgba(232, 27, 27, 0.953);
+  height: 10vh;
 }
 
-.navbar-nav .router-link-exact-active {
-  border-bottom: 2px solid var(--bs-success);
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+.create-btn {
+  background: rgba(255, 255, 255, 0.953);
+}
+
+.all-tests {
+  color: rgba(255, 255, 255, 0.953);
 }
 </style>

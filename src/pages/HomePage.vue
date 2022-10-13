@@ -1,44 +1,101 @@
 <template>
-  <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-    <div class="home-card p-5 bg-white rounded elevation-3">
-      <img
-        src="https://bcw.blob.core.windows.net/public/img/8600856373152463"
-        alt="CodeWorks Logo"
-        class="rounded-circle"
-      >
-      <h1 class="my-5 bg-dark text-white p-3 rounded text-center">
-        Vue 3 Starter
-      </h1>
+  <header><Navbar /></header>
+  <div class="container">
+    <div class="row bg-white elevation-3 rounded mt-5 p-3">
+      <div class="col-md-4">
+        <div class="m-3">
+          <div class="bg-grey text-center card">
+            <h4 class="name">{{ testName.test1 }}</h4>
+            <div>
+              <button @click="goToWasteTest" class="btn bg-danger px-4">
+                Start Test
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="m-3">
+          <div class="bg-grey text-center card">
+            <h4 class="name">{{ testName.customTest }}</h4>
+            <div>
+              <button
+                v-if="test1.length > 0"
+                @click="goToWasteTest"
+                class="btn bg-danger px-4"
+              >
+                Start Test
+              </button>
+              <button
+                v-else
+                @click="createCustomTest"
+                class="btn bg-danger px-4"
+              >
+                Start Test
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="m-3">
+          <div class="bg-grey text-center card">
+            <h4 class="name">{{ testName.test2 }}</h4>
+            <div>
+              <button
+                @click="goToLeanTerminologyTest"
+                class="btn bg-danger px-4"
+              >
+                Start Test
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { computed, onMounted, ref } from "@vue/runtime-core";
+import { AppState } from "../AppState";
+import { useRouter } from "vue-router";
 export default {
   setup() {
-    return {}
-  }
-}
+    const router = useRouter();
+
+    onMounted(async () => {
+      console.log(AppState.test1.length);
+    });
+
+    return {
+      goToWasteTest() {
+        router.push({ name: "WasteTest" });
+      },
+      goToLeanTerminologyTest() {
+        router.push({ name: "LeanTerminologyTest" });
+      },
+
+      goToCustomTest() {
+        router.push({ name: "LeanTerminologyTest" });
+      },
+      createCustomTest() {
+        router.push({ name: "Create" });
+      },
+
+      testName: computed(() => AppState.testNames),
+      test1: computed(() => AppState.test1),
+    };
+  },
+};
 </script>
 
 <style scoped lang="scss">
-.home {
-  display: grid;
-  height: 80vh;
-  place-content: center;
-  text-align: center;
-  user-select: none;
+.card {
+  height: 400px;
+}
 
-  .home-card {
-    width: 50vw;
-
-    >img {
-      height: 200px;
-      max-width: 200px;
-      width: 100%;
-      object-fit: contain;
-      object-position: center;
-    }
-  }
+.name {
+  padding-top: 7em;
 }
 </style>

@@ -12,15 +12,19 @@ const routes = [
     component: loadPage('HomePage')
   },
   {
-    path: '/about',
-    name: 'About',
-    component: loadPage('AboutPage')
+    path: '/createTest',
+    name: 'Create',
+    component: loadPage('CreateTestPage')
   },
   {
-    path: '/account',
-    name: 'Account',
-    component: loadPage('AccountPage'),
-    beforeEnter: authGuard
+    path: '/8WasteTest',
+    name: 'WasteTest',
+    component: loadPage('WasteTestPage')
+  },
+  {
+    path: '/LeanTerminologyTest',
+    name: 'LeanTerminologyTest',
+    component: loadPage('LeanTerminologyTestPage')
   }
 ]
 
