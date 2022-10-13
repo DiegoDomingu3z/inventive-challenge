@@ -1,4 +1,5 @@
 import { reactive } from 'vue'
+import { loadState } from '../app/Utils/Store.js'
 
 // NOTE AppState is a reactive object to contain app level data
 export const AppState = reactive({
@@ -224,6 +225,6 @@ export const AppState = reactive({
 
     },
   ],
-  customTest: []
+  customTest: [] = loadState('customTest')
 
 })

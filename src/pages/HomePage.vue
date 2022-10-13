@@ -20,7 +20,7 @@
       <div class="col-md-4">
         <div class="m-3">
           <div class="bg-grey text-center card">
-            <h4 class="name">{{ testName.customTest }}</h4>
+            <h4 class="name">{{ test.questionText }}</h4>
             <div>
               <button
                 v-if="customTest.length > 0"
@@ -64,7 +64,9 @@ export default {
   setup() {
     const router = useRouter();
 
-    onMounted(async () => {});
+    onMounted(async () => {
+      console.log(AppState.customTest);
+    });
 
     return {
       goToWasteTest() {
@@ -83,6 +85,7 @@ export default {
 
       testName: computed(() => AppState.testNames),
       customTest: computed(() => AppState.customTest),
+      test: computed(() => AppState.customTest),
     };
   },
 };

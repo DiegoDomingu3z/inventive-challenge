@@ -99,9 +99,11 @@ export default {
       if (answer == true) {
         this.score = this.score + 1;
         console.log("correct!");
+        console.log(answer);
       }
 
       if (nextQuestion < this.questions.length) {
+        this.answer = {};
         this.currentQuestion = nextQuestion;
         console.log("nextQuestion! Lets Go!");
         console.log(this.currentQuestion);
