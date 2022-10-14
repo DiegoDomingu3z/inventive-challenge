@@ -8,12 +8,9 @@ export const AppState = reactive({
   account: {},
   testNames: {
     wasteTest: "8 Wastes",
-    customTest: "Custom",
     test2: "Lean Terminology"
   },
-  customTestName: {
-
-  },
+  customTestName: [] = loadState('customTestName'),
   leanTerminology: [
     {
 

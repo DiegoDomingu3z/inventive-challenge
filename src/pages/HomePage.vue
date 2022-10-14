@@ -20,11 +20,18 @@
       <div class="col-md-4">
         <div class="m-3">
           <div class="bg-grey text-center card">
-            <h4 class="name">{{ test.questionText }}</h4>
+            <div v-if="customTest.length > 0">
+              <h4 :key="index" v-for="(option, index) in test[0]" class="name">
+                {{ option }}
+              </h4>
+            </div>
+            <div v-else>
+              <h4 class="name">Custom Test</h4>
+            </div>
             <div>
               <button
                 v-if="customTest.length > 0"
-                @click="goToWasteTest"
+                @click="goToCustomTest"
                 class="btn bg-danger px-4"
               >
                 Start Test
@@ -60,12 +67,14 @@
 import { computed, onMounted, ref } from "@vue/runtime-core";
 import { AppState } from "../AppState";
 import { useRouter } from "vue-router";
+import { Pop } from "../../app/Utils/Pop";
 export default {
   setup() {
     const router = useRouter();
 
     onMounted(async () => {
       console.log(AppState.customTest);
+      console.log(AppState.customTestName);
     });
 
     return {
@@ -77,7 +86,7 @@ export default {
       },
 
       goToCustomTest() {
-        router.push({ name: "LeanTerminologyTest" });
+        router.push({ name: "CustomTest" });
       },
       createCustomTest() {
         router.push({ name: "Create" });
@@ -85,7 +94,7 @@ export default {
 
       testName: computed(() => AppState.testNames),
       customTest: computed(() => AppState.customTest),
-      test: computed(() => AppState.customTest),
+      test: computed(() => AppState.customTestName),
     };
   },
 };

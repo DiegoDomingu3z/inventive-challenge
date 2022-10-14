@@ -139,15 +139,15 @@
             </div>
           </div>
           <div class="col-md-12">
-            <div class="save-btn rounded selectable">
-              <button @click="save" type="submit">Save</button>
+            <div @click="save" class="save-btn rounded selectable text-center">
+              <button type="submit" class="btn">Save</button>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div>
+  <div v-if="customTestName.length > 0">
     <button @click="deleteTest">delete stuff in storage</button>
   </div>
 </template>
@@ -234,19 +234,28 @@ export default {
           window.localStorage.removeItem("customTest");
           let data = AppState.customTest;
           data.splice(0, data.length);
+          let nameData = AppState.customTestName;
+          nameData.splice(0, nameData.length);
           console.log(AppState.customTest);
+          console.log(AppState.customTestName);
         } catch (error) {
           console.log(error.message);
         }
       },
 
-      save() {
-        let data = { name: testName.value };
-        AppState.customTestName.push(data);
-        console.log(AppState.customTestName);
-        router.push({ name: "CustomTest" });
+      async save() {
+        if (
+          await Pop.confirm("Save?", "You will be taken to the testing page")
+        ) {
+          let data = { name: testName.value };
+          AppState.customTestName.push(data);
+          saveState("customTestName", AppState.customTestName);
+          console.log(AppState.customTestName);
+          router.push({ name: "CustomTest" });
+        }
       },
       customTest: computed(() => AppState.customTest),
+      customTestName: computed(() => AppState.customTestName),
     };
   },
 
