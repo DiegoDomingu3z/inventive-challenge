@@ -57,6 +57,11 @@
             />
           </div>
         </div>
+        <div v-if="showError" class="col-md-8 mx-auto">
+          <div class="rounded-pill error text-center mt-4">
+            <p class="text-white">Please select an answer</p>
+          </div>
+        </div>
         <div class="col-md-8 mx-auto text-end mt-5 mb-5">
           <button title="Submit" class="btn bg-danger submit-btn">
             submit
@@ -80,6 +85,7 @@ export default {
       answer: {},
       currentQuestion: 0,
       showScore: false,
+      showError: false,
       score: 0,
       percentage: "",
       questions: computed(() => AppState.wasteTest),
@@ -95,7 +101,7 @@ export default {
       let nextQuestion = this.currentQuestion + 1;
       if (answer != true && answer != undefined) {
         Pop.toast("Please Select an Answer");
-
+        this.showError = true;
         return;
       }
       if (answer == true) {
@@ -106,6 +112,7 @@ export default {
       if (nextQuestion < this.questions.length) {
         this.answer = {};
         this.currentQuestion = nextQuestion;
+        this.showError = false;
       } else {
         let totalQuestions = AppState.wasteTest.length;
         let newScore = (this.score / totalQuestions) * 100;
@@ -118,6 +125,10 @@ export default {
 </script>
       
   <style scoped>
+.error {
+  background-color: rgb(75, 75, 75);
+  padding: 0.5rem;
+}
 .home-btn {
   color: red;
   font-weight: bolder;
