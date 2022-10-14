@@ -2,31 +2,33 @@
   <div class="row gx-0">
     <div class="col-md-8 mx-auto">
       <div class="bg-white elevation-4 p-4 mt-5 rounded">
-        <form>
-          <div class="row">
-            <div class="col-md-12">
-              <label class="pb-1 text-dark" for="title">Test Name</label>
-              <input
-                id="title"
-                class="form-control"
-                placeholder="Enter the title of your test..."
-                type="text"
-              />
-            </div>
-            <div class="col-md-12">
-              <div v-if="addQuestion">
-                <div class="question-form-box rounded">
-                  <div class="row">
+        <div class="row">
+          <div class="col-md-12">
+            <label class="pb-1 text-dark" for="title">Test Name</label>
+            <input
+              id="title"
+              class="form-control"
+              placeholder="Enter the title of your test..."
+              type="text"
+              v-model="testName"
+              required="true"
+            />
+          </div>
+          <div class="col-md-12">
+            <div v-if="addQuestion">
+              <div class="question-form-box rounded">
+                <div class="row">
+                  <form @submit.prevent="addQuestions" id="question-form">
                     <div class="col-md-12">
                       <label for="" class="text-white">Question</label>
                       <textarea
                         placeholder="Write question..."
                         class="form-control question-input"
                         name=""
-                        id=""
                         cols="30"
                         rows="2"
                         v-model="questionTextData"
+                        required="true"
                       ></textarea>
                     </div>
                     <div class="col-md-6 text-center mx-auto">
@@ -42,9 +44,10 @@
                         <textarea
                           class="form-control"
                           name=""
-                          id=""
+                          id="answer-a"
                           rows="1"
                           v-model="answerA"
+                          required="true"
                         ></textarea>
                         <input
                           v-model="isCorrectA"
@@ -59,11 +62,16 @@
                         <textarea
                           class="form-control"
                           name=""
-                          id=""
+                          id="answer-b"
                           rows="1"
                           v-model="answerB"
+                          required="true"
                         ></textarea>
-                        <input name="answer" type="radio" />
+                        <input
+                          v-model="isCorrectB"
+                          name="answer"
+                          type="radio"
+                        />
                       </div>
                     </div>
                     <div class="col-md-12 inputs">
@@ -72,11 +80,16 @@
                         <textarea
                           class="form-control"
                           name=""
-                          id=""
+                          id="answer-b"
                           rows="1"
                           v-model="answerC"
+                          required="true"
                         ></textarea>
-                        <input name="answer" type="radio" />
+                        <input
+                          v-model="isCorrectC"
+                          name="answer"
+                          type="radio"
+                        />
                       </div>
                     </div>
                     <div class="col-md-12 inputs">
@@ -85,11 +98,16 @@
                         <textarea
                           class="form-control"
                           name=""
-                          id=""
+                          id="answer-d"
                           rows="1"
                           v-model="answerD"
+                          required="true"
                         ></textarea>
-                        <input name="answer" type="radio" />
+                        <input
+                          v-model="isCorrectD"
+                          name="answer"
+                          type="radio"
+                        />
                       </div>
                     </div>
                     <div class="row">
@@ -101,41 +119,36 @@
                           >
                             Cancel
                           </button>
-                          <button
-                            @click.prevent="addQuestions"
-                            class="btn bg-grey ms-2"
-                          >
+                          <button type="submit" class="btn bg-grey ms-2">
                             Add Question
                           </button>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </form>
                 </div>
               </div>
-              <div v-else class="question-btn-box rounded">
-                <button @click="openQuestionForm" class="btn question-btn">
-                  Add Question
-                </button>
-              </div>
-              <div class="text-center mt-4">
-                <p>Total Questions: 8</p>
-              </div>
             </div>
-            <div class="col-md-12">
-              <div class="save-btn rounded selectable">
-                <button type="submit">Save</button>
-              </div>
+            <div v-else class="question-btn-box rounded">
+              <button @click="openQuestionForm" class="btn question-btn">
+                Add Question
+              </button>
+            </div>
+            <div class="text-center mt-4">
+              <p>Total Questions: {{ customTest.length }}</p>
             </div>
           </div>
-        </form>
+          <div class="col-md-12">
+            <div class="save-btn rounded selectable">
+              <button @click="save" type="submit">Save</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <!-- <div class="example">
-      <div v-for="n in 4" :key="n">
-        <input type="text" v-model="answers[n - 1]" />
-      </div>
-    </div> -->
+  </div>
+  <div>
+    <button @click="deleteTest">delete stuff in storage</button>
   </div>
 </template>
 
@@ -145,12 +158,11 @@ import { ref } from "@vue/reactivity";
 import Pop from "../utils/Pop";
 import { AppState } from "../AppState";
 import { saveState } from "../../app/Utils/Store";
+import { computed } from "@vue/runtime-core";
+import { useRouter } from "vue-router";
 export default {
   setup() {
-    let answers = ref([]);
-
-    let testData = ref({});
-    let question = ref("");
+    let testName = ref("");
     let questionTextData = ref("");
     let answerA = ref("");
     let answerB = ref("");
@@ -160,9 +172,20 @@ export default {
     let isCorrectB = ref("");
     let isCorrectC = ref("");
     let isCorrectD = ref("");
+    const resetting = async () => {
+      isCorrectA.value = "";
+      isCorrectB.value = "";
+      isCorrectC.value = "";
+      isCorrectD.value = "";
+      questionTextData.value = "";
+      answerA.value = "";
+      answerB.value = "";
+      answerC.value = "";
+      answerD.value = "";
+    };
+    const router = useRouter();
     return {
-      answers,
-      testData,
+      testName,
       questionTextData,
       answerA,
       answerB,
@@ -174,18 +197,31 @@ export default {
       isCorrectD,
       addQuestions() {
         try {
+          if (isCorrectA.value === "on") {
+            isCorrectA.value = "true";
+            console.log(isCorrectA.value);
+            console.log("IS WORKING ^^^^");
+          } else if (isCorrectB.value === "on") {
+            isCorrectB.value = "true";
+          } else if (isCorrectC.value === "on") {
+            isCorrectC.value = "true";
+          } else if (isCorrectD.value === "on") {
+            isCorrectD.value = "true";
+          } else {
+            Pop.toast("Pick a correct answer");
+            return;
+          }
           let quiz = {
             questionText: questionTextData.value,
             answerOptions: [
-              { answerText: answerA.value },
-              { answerText: answerB.value },
-              { answerText: answerC.value },
-              { answerText: answerD.value },
+              { answerText: answerA.value, isCorrect: isCorrectA.value },
+              { answerText: answerB.value, isCorrect: isCorrectB.value },
+              { answerText: answerC.value, isCorrect: isCorrectC.value },
+              { answerText: answerD.value, isCorrect: isCorrectD.value },
             ],
           };
           console.log(quiz);
-          console.log(isCorrectA.value);
-
+          resetting();
           AppState.customTest.push(quiz);
           saveState("customTest", AppState.customTest);
           console.log(AppState.customTest, "AppState");
@@ -193,6 +229,24 @@ export default {
           Pop.toast(error.message);
         }
       },
+      deleteTest() {
+        try {
+          window.localStorage.removeItem("customTest");
+          let data = AppState.customTest;
+          data.splice(0, data.length);
+          console.log(AppState.customTest);
+        } catch (error) {
+          console.log(error.message);
+        }
+      },
+
+      save() {
+        let data = { name: testName.value };
+        AppState.customTestName.push(data);
+        console.log(AppState.customTestName);
+        router.push({ name: "CustomTest" });
+      },
+      customTest: computed(() => AppState.customTest),
     };
   },
 

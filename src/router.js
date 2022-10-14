@@ -25,7 +25,12 @@ const routes = [
     path: '/LeanTerminologyTest',
     name: 'LeanTerminologyTest',
     component: loadPage('LeanTerminologyTestPage')
-  }
+  },
+  {
+    path: '/CustomTest',
+    name: 'CustomTest',
+    component: loadPage('CustomTestPage')
+  },
 ]
 
 export const router = createRouter({

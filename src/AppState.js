@@ -11,6 +11,9 @@ export const AppState = reactive({
     customTest: "Custom",
     test2: "Lean Terminology"
   },
+  customTestName: {
+
+  },
   leanTerminology: [
     {
 
