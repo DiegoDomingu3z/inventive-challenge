@@ -1,0 +1,1 @@
+import{_ as o,c as n,b as t,o as s,r as a}from"./index.d1565be8.js";const r={data(){},methods:{}},c={class:"container-fluid gx-0"};function _(i,d,l,m,p,f){const e=a("LeanTerminology");return s(),n("div",c,[t(e)])}const g=o(r,[["render",_]]);export{g as default};

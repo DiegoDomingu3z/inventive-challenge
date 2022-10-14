@@ -1,0 +1,1 @@
+import{_ as t,c as s,b as o,o as a,r as c}from"./index.d1565be8.js";const _={setup(){return{}}},n={class:"container-fluid gx-0"};function r(p,d,f,i,l,u){const e=c("WasteTest");return a(),s("div",n,[o(e)])}const v=t(_,[["render",r],["__scopeId","data-v-cafbf0e4"]]);export{v as default};

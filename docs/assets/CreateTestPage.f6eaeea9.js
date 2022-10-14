@@ -1,0 +1,1 @@
+import{_ as n,c as r,a as e,b as t,F as c,o as _,r as a}from"./index.d1565be8.js";const p={setup(){return{}}},l={class:"container"};function d(m,u,i,f,v,C){const o=a("Navbar"),s=a("CreateTest");return _(),r(c,null,[e("header",null,[t(o)]),e("div",l,[t(s)])],64)}const $=n(p,[["render",d]]);export{$ as default};
