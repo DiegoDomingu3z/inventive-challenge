@@ -49,7 +49,7 @@
               {{ option.letter }}. {{ option.answerText }}
             </label>
             <input
-              v-bind:id="option.answerText"
+              :id="option.answerText"
               :value="option.isCorrect"
               type="radio"
               v-model="answer"
@@ -58,7 +58,9 @@
           </div>
         </div>
         <div class="col-md-8 mx-auto text-end mt-5 mb-5">
-          <button class="btn bg-danger submit-btn">submit</button>
+          <button title="Submit" class="btn bg-danger submit-btn">
+            submit
+          </button>
         </div>
       </form>
     </div>

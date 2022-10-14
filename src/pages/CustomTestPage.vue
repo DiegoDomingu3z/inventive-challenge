@@ -2,7 +2,13 @@
   <nav class="">
     <div class="row gx-0">
       <div class="col-md-6">
-        <h1 class="test-name">{{ testName.test2 }}</h1>
+        <h1
+          :key="index"
+          v-for="(name, index) in customTestName[0]"
+          class="test-name"
+        >
+          {{ name }}
+        </h1>
       </div>
       <div class="col-md-6 text-center">
         <div class="quiz-info">
@@ -37,9 +43,11 @@
           <div class="question-name">
             <span> {{ currentQuestion + 1 }}. </span>
             <span>
-              {{ questions[currentQuestion].answerText }}
+              {{ questions[currentQuestion].questionText }}
             </span>
           </div>
+          <div class="d-flex"></div>
+
           <div
             class="d-flex justify-content-between questions"
             :key="index"
@@ -58,7 +66,9 @@
           </div>
         </div>
         <div class="col-md-8 mx-auto text-end mt-5 mb-5">
-          <button class="btn bg-danger submit-btn">submit</button>
+          <button title="Submit" class="btn bg-danger submit-btn">
+            submit
+          </button>
         </div>
       </form>
     </div>
@@ -85,6 +95,7 @@ export default {
       goHome() {
         route.push({ name: "Home" });
       },
+      customTestName: computed(() => AppState.customTestName),
     };
   },
   methods: {

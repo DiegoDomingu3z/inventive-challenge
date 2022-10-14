@@ -8,6 +8,7 @@
             <h4 class="name">{{ testName.test2 }}</h4>
             <div>
               <button
+                title="Take Test"
                 @click="goToLeanTerminologyTest"
                 class="btn bg-danger px-4"
               >
@@ -30,6 +31,7 @@
             </div>
             <div>
               <button
+                title="Take Test"
                 v-if="customTest.length > 0"
                 @click="goToCustomTest"
                 class="btn bg-danger px-4"
@@ -37,11 +39,12 @@
                 Start Test
               </button>
               <button
+                title="Create Test"
                 v-else
                 @click="createCustomTest"
                 class="btn bg-danger px-4"
               >
-                Start Test
+                Create Custom Test
               </button>
             </div>
           </div>

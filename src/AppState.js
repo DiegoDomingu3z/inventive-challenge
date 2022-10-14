@@ -5,6 +5,7 @@ import { loadState } from '../app/Utils/Store.js'
 export const AppState = reactive({
   user: {},
   /** @type {import('./models/Account.js').Account} */
+  // @ts-ignore
   account: {},
   testNames: {
     wasteTest: "8 Wastes",
@@ -225,6 +226,8 @@ export const AppState = reactive({
 
     },
   ],
-  customTest: [] = loadState('customTest')
+  customTest: [
+
+  ] = loadState('customTest')
 
 })

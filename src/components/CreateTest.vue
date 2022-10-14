@@ -1,10 +1,12 @@
 <template>
   <div class="row gx-0">
     <div class="col-md-8 mx-auto">
-      <div class="bg-white elevation-4 p-4 mt-5 rounded">
+      <div class="bg-white elevation-4 p-4 mt-5 rounded create-card">
         <div class="row">
           <div class="col-md-12">
-            <label class="pb-1 text-dark" for="title">Test Name</label>
+            <label class="pb-1 text-dark font-weight-bold" for="title"
+              >Test Name</label
+            >
             <input
               id="title"
               class="form-control"
@@ -119,7 +121,7 @@
                           >
                             Cancel
                           </button>
-                          <button type="submit" class="btn bg-grey ms-2">
+                          <button type="submit" class="btn add-button ms-2">
                             Add Question
                           </button>
                         </div>
@@ -130,25 +132,37 @@
               </div>
             </div>
             <div v-else class="question-btn-box rounded">
-              <button @click="openQuestionForm" class="btn question-btn">
+              <button
+                title="Add Question"
+                @click="openQuestionForm"
+                class="btn question-btn"
+              >
                 Add Question
               </button>
             </div>
             <div class="text-center mt-4">
-              <p>Total Questions: {{ customTest.length }}</p>
+              <p class="font-weight-bold">
+                Total Questions: {{ customTest.length }}
+              </p>
             </div>
           </div>
           <div class="col-md-12">
             <div @click="save" class="save-btn rounded selectable text-center">
-              <button type="submit" class="btn">Save</button>
+              <button title="Save Title" type="submit" class="btn">Save</button>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div v-if="customTestName.length > 0">
-    <button @click="deleteTest">delete stuff in storage</button>
+  <div class="text-center mt-5" v-if="customTestName.length > 0">
+    <button
+      title="Delete current Test"
+      class="btn bg-danger"
+      @click="deleteTest"
+    >
+      Delete current Test
+    </button>
   </div>
 </template>
 
@@ -214,10 +228,26 @@ export default {
           let quiz = {
             questionText: questionTextData.value,
             answerOptions: [
-              { answerText: answerA.value, isCorrect: isCorrectA.value },
-              { answerText: answerB.value, isCorrect: isCorrectB.value },
-              { answerText: answerC.value, isCorrect: isCorrectC.value },
-              { answerText: answerD.value, isCorrect: isCorrectD.value },
+              {
+                letter: "a",
+                answerText: answerA.value,
+                isCorrect: isCorrectA.value,
+              },
+              {
+                letter: "b",
+                answerText: answerB.value,
+                isCorrect: isCorrectB.value,
+              },
+              {
+                letter: "c",
+                answerText: answerC.value,
+                isCorrect: isCorrectC.value,
+              },
+              {
+                letter: "d",
+                answerText: answerD.value,
+                isCorrect: isCorrectD.value,
+              },
             ],
           };
           console.log(quiz);
@@ -229,15 +259,22 @@ export default {
           Pop.toast(error.message);
         }
       },
-      deleteTest() {
+      async deleteTest() {
         try {
-          window.localStorage.removeItem("customTest");
-          let data = AppState.customTest;
-          data.splice(0, data.length);
-          let nameData = AppState.customTestName;
-          nameData.splice(0, nameData.length);
-          console.log(AppState.customTest);
-          console.log(AppState.customTestName);
+          if (
+            await Pop.confirm(
+              "Delete?",
+              "All data from this test will be removed"
+            )
+          ) {
+            window.localStorage.removeItem("customTest");
+            let data = AppState.customTest;
+            data.splice(0, data.length);
+            let nameData = AppState.customTestName;
+            nameData.splice(0, nameData.length);
+            console.log(AppState.customTest);
+            console.log(AppState.customTestName);
+          }
         } catch (error) {
           console.log(error.message);
         }
@@ -279,6 +316,12 @@ export default {
 
 
 <style lang="scss" scoped>
+@media (max-width: 768px) {
+  .create-card {
+    margin-top: 5rem !important;
+  }
+}
+
 label {
   color: white;
   margin-bottom: 0.3rem;
@@ -295,6 +338,10 @@ label {
 textarea {
   width: 95%;
 }
+.add-button {
+  background-color: #2e2d2d;
+  color: white;
+}
 .instruction {
   background-color: #2e2d2d;
   color: white;
@@ -304,11 +351,11 @@ textarea {
 }
 .question-form-box {
   margin-top: 1rem;
-  background-color: red;
+  background-color: rgb(246, 81, 81);
   padding: 1.5rem;
 }
 .question-btn-box {
-  background-color: red;
+  background-color: rgb(247, 74, 74);
   padding: 1.5rem;
   margin-top: 1rem;
   text-align: center;
@@ -323,5 +370,6 @@ textarea {
   background-color: red;
   padding: 0.5rem;
   margin-top: 1rem;
+  color: white;
 }
 </style>

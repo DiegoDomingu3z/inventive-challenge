@@ -58,7 +58,9 @@
           </div>
         </div>
         <div class="col-md-8 mx-auto text-end mt-5 mb-5">
-          <button class="btn bg-danger submit-btn">submit</button>
+          <button title="Submit" class="btn bg-danger submit-btn">
+            submit
+          </button>
         </div>
       </form>
     </div>
@@ -102,6 +104,7 @@ export default {
       }
 
       if (nextQuestion < this.questions.length) {
+        this.answer = {};
         this.currentQuestion = nextQuestion;
       } else {
         let totalQuestions = AppState.wasteTest.length;
